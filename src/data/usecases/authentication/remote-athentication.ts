@@ -8,7 +8,7 @@ import { Authentication, AuthenticationParams } from '@/domain/usecases/authenti
 export class RemoteAuthentication implements Authentication {
   constructor (
     private readonly url: string,
-    private readonly httpPostClient: HttpPostClient
+    private readonly httpPostClient: HttpPostClient<AuthenticationParams, AccountModel>
   ) {}
 
   async auth (params: AuthenticationParams): Promise<AccountModel> {
@@ -17,7 +17,7 @@ export class RemoteAuthentication implements Authentication {
       body: params
     })
     switch (httpResponse.statusCode) {
-      case HttpStatusCode.ok: return await Promise.resolve({ accessToken: 'fake' })
+      case HttpStatusCode.ok: return (httpResponse.body) as AccountModel
       case HttpStatusCode.unauthorized: throw new InvalidCredentialsError()
       default: throw new UnexpectedError()
     }
