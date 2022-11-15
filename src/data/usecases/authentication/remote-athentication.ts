@@ -1,6 +1,8 @@
-import { HttpPostClient } from '../../protocols/http-post-client'
-import { AccountModel } from '../../../domain/models/account-model'
-import { Authentication, AuthenticationParams } from '../../../domain/usecases/authentication'
+import { HttpPostClient } from '@/data/protocols/http/http-post-client'
+import { HttpStatusCode } from '@/data/protocols/http/http-response'
+import { InvalidCredentialsError } from '@/domain/errors/invalid-credentails-error'
+import { AccountModel } from '@/domain/models/account-model'
+import { Authentication, AuthenticationParams } from '@/domain/usecases/authentication'
 
 export class RemoteAuthentication implements Authentication {
   constructor (
@@ -9,10 +11,13 @@ export class RemoteAuthentication implements Authentication {
   ) {}
 
   async auth (params: AuthenticationParams): Promise<AccountModel> {
-    await this.httpPostClient.post({
+    const httpResponse = await this.httpPostClient.post({
       url: this.url,
       body: params
     })
-    return await Promise.resolve({ accessToken: 'fake' })
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.unauthorized: throw new InvalidCredentialsError()
+      default: return await Promise.resolve({ accessToken: 'fake' })
+    }
   }
 }
