@@ -1,12 +1,7 @@
 import { HttpPostClientSpy } from '../../test/mock-http-client'
-import { AuthenticationParams } from '../../../domain/usecases/authentication'
+import { mockAuthenticationParams } from '../../../domain/test/mock-authentication'
 import { RemoteAuthentication } from './remote-athentication'
 import { faker } from '@faker-js/faker'
-
-const mockAuthenticationParams = (): AuthenticationParams => ({
-  email: faker.internet.exampleEmail(),
-  password: faker.internet.password()
-})
 
 type SutTypes = {
   sut: RemoteAuthentication
