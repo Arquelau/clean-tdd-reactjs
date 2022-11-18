@@ -15,8 +15,8 @@
     "paths": {
       "@/*": ["*"]
     },
+    "strictNullChecks": true,
     "allowJs": true,
-    "strict": true,
     "resolveJsonModule": true,
   },
   "include": [

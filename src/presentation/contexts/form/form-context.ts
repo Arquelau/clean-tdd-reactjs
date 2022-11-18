@@ -1,7 +1,12 @@
 import { createContext } from 'react'
 
-const temp = {
-  isLoading: false,
-  errorMessage: ''
+const state = {
+  isLoading: false
 }
-export default createContext(temp)
+
+const errorState = {
+  email: 'Campo Obrigatório',
+  password: 'Campo Obrigatório',
+  main: ''
+}
+export default createContext({ state, errorState })
