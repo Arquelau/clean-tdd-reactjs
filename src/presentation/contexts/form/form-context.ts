@@ -13,7 +13,7 @@ let state: StateTypes = {
   isLoading: false,
   email: '',
   password: '',
-  emailError: 'Campo Obrigatório',
+  emailError: '',
   passwordError: 'Campo Obrigatório',
   mainError: ''
 }
