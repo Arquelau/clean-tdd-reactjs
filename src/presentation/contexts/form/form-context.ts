@@ -1,12 +1,21 @@
 import { createContext } from 'react'
 
-const state = {
-  isLoading: false
+type StateTypes = {
+  isLoading: boolean
+  email: string
+  password: string
+  emailError: string
+  passwordError: string
+  mainError: string
 }
 
-const errorState = {
-  email: 'Campo Obrigatório',
-  password: 'Campo Obrigatório',
-  main: ''
+let state: StateTypes = {
+  isLoading: false,
+  email: '',
+  password: '',
+  emailError: 'Campo Obrigatório',
+  passwordError: 'Campo Obrigatório',
+  mainError: ''
 }
-export default createContext({ state, errorState })
+
+export default createContext({ state, setState: (data: StateTypes) => { state = data } })
